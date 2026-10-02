@@ -80,17 +80,6 @@ If you want to use a normal SQL Server instance, update `CinemaDbContext` in `We
 
 This project intentionally follows the **MVC 5 / Code First** style of the supplied reference rather than ASP.NET Core. It is therefore intended for Visual Studio on Windows with .NET Framework 4.8.
 
-## Git
-
-```bash
-git init
-git add .
-git commit -m "Initial cinema ticket booking system"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/CinemaTicketBookingSystem.git
-git push -u origin main
-```
-
 ## License
 
 Use and modify this project for learning, coursework, and portfolio purposes.
