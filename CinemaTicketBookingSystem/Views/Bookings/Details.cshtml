@@ -1,0 +1,16 @@
+@model CinemaTicketBookingSystem.Models.Booking
+@{ ViewBag.Title = "Booking Details"; }
+<h2>Booking Details</h2>
+<div class="ticket">
+ <div class="ticket-head"><span>BOOKING CONFIRMATION</span><strong>@Model.BookingCode</strong></div>
+ <table class="table">
+  <tr><th>Customer</th><td>@Model.Customer.Name</td></tr><tr><th>Phone</th><td>@Model.Customer.Phone</td></tr>
+  <tr><th>Movie</th><td>@Model.Showtime.Movie.Title</td></tr><tr><th>Showtime</th><td>@Model.Showtime.StartTime.ToString("dd MMMM yyyy, hh:mm tt")</td></tr>
+  <tr><th>Seats</th><td>@Model.SeatCount</td></tr><tr><th>Ticket Price</th><td>৳ @Model.Showtime.TicketPrice.ToString("N0")</td></tr>
+  <tr><th>Total Amount</th><td><strong>৳ @Model.TotalAmount.ToString("N0")</strong></td></tr>
+  <tr><th>Status</th><td><span class="label @(Model.Status=="Confirmed"?"label-success":"label-danger")">@Model.Status</span></td></tr>
+  <tr><th>Booked At</th><td>@Model.BookingDate.ToString("dd MMM yyyy hh:mm tt")</td></tr>
+ </table>
+</div>
+@if(Model.Status=="Confirmed"){using(Html.BeginForm("Cancel","Bookings",FormMethod.Post,new{id="cancelForm"})){@Html.AntiForgeryToken() @Html.Hidden("id",Model.Id) <button class="btn btn-danger" type="submit" onclick="return confirm('Cancel this booking?');">Cancel Booking</button>}}
+<a class="btn btn-default" href="@Url.Action("Index")">Back</a>

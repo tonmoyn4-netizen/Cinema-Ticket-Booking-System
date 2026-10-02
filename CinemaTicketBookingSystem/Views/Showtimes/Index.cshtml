@@ -1,0 +1,8 @@
+@model IEnumerable<CinemaTicketBookingSystem.Models.Showtime>
+@{ ViewBag.Title = "Showtimes"; }
+<div class="page-header"><h2>Showtimes <a href="@Url.Action("Create")" class="btn btn-primary pull-right">+ Add Showtime</a></h2></div>
+<table class="table table-bordered table-striped"><thead><tr><th>Movie</th><th>Start</th><th>Price</th><th>Total Seats</th><th>Active</th><th>Action</th></tr></thead><tbody>
+@foreach(var s in Model){<tr id="row-@s.Id"><td>@s.Movie.Title</td><td>@s.StartTime.ToString("dd MMM yyyy hh:mm tt")</td><td>৳ @s.TicketPrice.ToString("N0")</td><td>@s.TotalSeats</td><td>@(s.IsActive?"Yes":"No")</td><td><a class="btn btn-warning btn-sm" href="@Url.Action("Edit",new{id=s.Id})">Edit</a> <a class="btn btn-primary btn-sm" href="@Url.Action("Create","Bookings",new{showtimeId=s.Id})">Book</a> <button class="btn btn-danger btn-sm btnDelete" data-id="@s.Id">Delete</button></td></tr>}
+</tbody></table>
+@Html.AntiForgeryToken()
+@section scripts{<script>$(".btnDelete").click(function(){var id=$(this).data("id");if(!confirm("Delete this showtime?"))return;$.post("@Url.Action("AjaxDelete")",{id:id,__RequestVerificationToken:$('input[name="__RequestVerificationToken"]').val()},function(ok){if(ok)$("#row-"+id).remove();else alert("Showtime cannot be deleted while it has bookings.");});});</script>}

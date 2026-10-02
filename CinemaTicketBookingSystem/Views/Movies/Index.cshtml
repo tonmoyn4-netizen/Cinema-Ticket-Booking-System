@@ -1,0 +1,29 @@
+@model IEnumerable<CinemaTicketBookingSystem.Models.Movie>
+@{ ViewBag.Title = "Movies"; }
+<div class="page-header"><h2>Movies <a href="@Url.Action("Create")" class="btn btn-primary pull-right">+ Add Movie</a></h2></div>
+<table class="table table-bordered table-striped">
+<thead><tr><th>Poster</th><th>Title</th><th>Genre</th><th>Duration</th><th>Release</th><th>Rating</th><th>Active</th><th>Action</th></tr></thead>
+<tbody>
+@foreach (var m in Model) {
+<tr id="row-@m.Id">
+<td>@if(!String.IsNullOrEmpty(m.PosterImage)){<img class="poster-thumb" src="@m.PosterImage" />}</td>
+<td>@m.Title</td><td>@m.Genre</td><td>@m.DurationMinutes min</td><td>@m.ReleaseDate.ToString("dd MMM yyyy")</td><td>@m.Rating</td><td>@(m.IsActive ? "Yes" : "No")</td>
+<td>
+<a class="btn btn-info btn-sm" href="@Url.Action("Details",new{id=m.Id})">View</a>
+<a class="btn btn-warning btn-sm" href="@Url.Action("Edit",new{id=m.Id})">Edit</a>
+<button class="btn btn-danger btn-sm btnDelete" data-id="@m.Id">Delete</button>
+</td></tr>
+}
+</tbody></table>
+@Html.AntiForgeryToken()
+@section scripts {
+<script>
+$(".btnDelete").click(function(){
+ var id=$(this).data("id");
+ if(!confirm("Are you sure you want to delete this movie?")) return;
+ $.post("@Url.Action("AjaxDelete")",{id:id,__RequestVerificationToken:$('input[name="__RequestVerificationToken"]').val()},function(ok){
+   if(ok) $("#row-"+id).remove(); else alert("Movie cannot be deleted while it has showtimes.");
+ });
+});
+</script>
+}

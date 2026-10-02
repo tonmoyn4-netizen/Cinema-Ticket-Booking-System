@@ -1,0 +1,17 @@
+@{ ViewBag.Title = "Dashboard"; }
+<div class="jumbotron cinema-hero">
+ <h1>Cinema Ticket Booking System</h1>
+ <p>Manage movies, showtimes and customer ticket bookings from one place.</p>
+ <p><a class="btn btn-primary btn-lg" href="@Url.Action("Create","Bookings")">Book a Ticket &raquo;</a></p>
+</div>
+<div class="row">
+ <div class="col-md-3"><div class="stat-card"><span>Movies</span><strong>@ViewBag.MovieCount</strong></div></div>
+ <div class="col-md-3"><div class="stat-card"><span>Upcoming Showtimes</span><strong>@ViewBag.ShowtimeCount</strong></div></div>
+ <div class="col-md-3"><div class="stat-card"><span>Bookings</span><strong>@ViewBag.BookingCount</strong></div></div>
+ <div class="col-md-3"><div class="stat-card"><span>Revenue</span><strong>৳ @String.Format("{0:N0}", ViewBag.Revenue)</strong></div></div>
+</div>
+<div class="row quick-links">
+ <div class="col-md-4"><a class="btn btn-default btn-block" href="@Url.Action("Index","Movies")">Manage Movies</a></div>
+ <div class="col-md-4"><a class="btn btn-default btn-block" href="@Url.Action("Index","Showtimes")">Manage Showtimes</a></div>
+ <div class="col-md-4"><a class="btn btn-default btn-block" href="@Url.Action("Index","Bookings")">View Bookings</a></div>
+</div>

@@ -1,0 +1,6 @@
+@model IEnumerable<CinemaTicketBookingSystem.Models.Booking>
+@{ ViewBag.Title = "Bookings"; }
+<div class="page-header"><h2>Ticket Bookings <a href="@Url.Action("Create")" class="btn btn-primary pull-right">+ Book Ticket</a></h2></div>
+<table class="table table-bordered table-striped"><thead><tr><th>Code</th><th>Customer</th><th>Movie</th><th>Showtime</th><th>Seats</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody>
+@foreach(var b in Model){<tr><td><strong>@b.BookingCode</strong></td><td>@b.Customer.Name</td><td>@b.Showtime.Movie.Title</td><td>@b.Showtime.StartTime.ToString("dd MMM yyyy hh:mm tt")</td><td>@b.SeatCount</td><td>৳ @b.TotalAmount.ToString("N0")</td><td><span class="label @(b.Status=="Confirmed"?"label-success":"label-danger")">@b.Status</span></td><td><a class="btn btn-info btn-sm" href="@Url.Action("Details",new{id=b.Id})">View</a></td></tr>}
+</tbody></table>
